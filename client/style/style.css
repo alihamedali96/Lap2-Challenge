@@ -2,3 +2,16 @@
   display: flex;
   justify-content: center;
 }
+.page {
+  margin-top: 20px;
+}
+#form {
+  display: flex;
+  row-gap: 10px;
+  flex-direction: column;
+}
+
+#form > input {
+  width: 400px;
+  height: 20px;
+}

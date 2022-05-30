@@ -4,5 +4,5 @@ CREATE TABLE posts (
     id serial PRIMARY KEY,
     title VARCHAR(60),
     posted_by VARCHAR(60),
-    story VARCHAR,
+    story VARCHAR(400),
 );

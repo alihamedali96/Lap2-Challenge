@@ -3,7 +3,9 @@ const db = require("../init");
 module.exports = class Posts {
   constructor(data) {
     this.id = data.id;
-    this.name = data.name;
+    this.title = data.title;
+    this.posted_by = data.posted_by;
+    this.story = data.story;
   }
   static get all() {
     return new Promise(async (resolve, reject) => {
@@ -24,4 +26,21 @@ module.exports = class Posts {
   //           }
   //       })
   //   }
+
+  static async create(postData) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { title, posted_by, story } = postData;
+        let result = await db.query(
+          `INSERT INTO posts (title, posted_by, story)
+           values ($1, $2, $3) 
+           returning *;`,
+          [title, posted_by, story]
+        );
+        resolve(result.rows[0]);
+      } catch (err) {
+        reject("Post could not be created");
+      }
+    });
+  }
 };

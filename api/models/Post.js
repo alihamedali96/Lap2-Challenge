@@ -19,13 +19,21 @@ module.exports = class Posts {
       }
     });
   }
-  //   static findById(id){
-  //       return new Promise(async (resolve, reject) => {
-  //           try {
-  //               const result = await db.query("SELECT posts.*,")
-  //           }
-  //       })
-  //   }
+
+  static findById(id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await db.query(
+          `SELECT * FROM posts WHERE posts.id = $1;`,
+          [id]
+        );
+        let post = new Posts(result.rows[0]);
+        resolve(post);
+      } catch (err) {
+        reject(`Post not found ${id}`);
+      }
+    });
+  }
 
   static async create(postData) {
     return new Promise(async (resolve, reject) => {

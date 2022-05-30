@@ -10,7 +10,6 @@ module.exports = class Posts {
       try {
         //  console.log(db);
         const result = await db.query("SELECT * FROM posts;");
-        console.log(result);
         const posts = result.rows.map((a) => new Posts(a));
         resolve(posts);
       } catch (err) {
@@ -18,4 +17,11 @@ module.exports = class Posts {
       }
     });
   }
+  //   static findById(id){
+  //       return new Promise(async (resolve, reject) => {
+  //           try {
+  //               const result = await db.query("SELECT posts.*,")
+  //           }
+  //       })
+  //   }
 };

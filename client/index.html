@@ -5,11 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yet Another Anonymous</title>
+    <link rel="stylesheet" href="style/style.css" />
+    <script defer src="js/script.js"></script>
   </head>
   <body>
     <div class="page_container">
       <div class="page">
-        <main></main>
+        <main>
+          <article>
+            <form id="form">
+              <input type="text" id="title" placeholder="Title" />
+              <input type="text" id="author" placeholder="Your name" />
+              <input type="textarea" id="content" placeholder="Your story..." />
+              <input type="submit" value="Add Post" />
+            </form>
+          </article>
+        </main>
       </div>
     </div>
   </body>

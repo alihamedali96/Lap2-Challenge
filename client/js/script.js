@@ -1,6 +1,7 @@
 const form = document.getElementById("form");
 
 form.addEventListener("submit", createPost);
+window.addEventListener("hashchange", updateLink);
 
 async function createPost(e) {
   e.preventDefault();
@@ -10,7 +11,6 @@ async function createPost(e) {
       posted_by: e.target.author.value,
       story: e.target.content.value,
     };
-    console.log(postData);
     const options = {
       method: "Post",
       headers: { "Content-Type": "application/json" },
@@ -18,8 +18,14 @@ async function createPost(e) {
     };
     const response = await fetch("http://localhost:3000/post", options);
     const whatisthis = await response.json();
-    console.log(whatisthis);
+    // Set up  url - The WillTom way
+    window.location.hash = `${whatisthis.id}`;
   } catch (err) {
     console.log(err);
   }
+}
+
+function updateLink() {
+  let hash = window.location.href.substring(1);
+  console.log(hash);
 }

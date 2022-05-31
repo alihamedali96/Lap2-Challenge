@@ -1,7 +1,7 @@
 const form = document.getElementById("form");
 const post = document.getElementById("post");
 form.addEventListener("submit", createPost);
-window.addEventListener("hashchange", updateLink);
+window.addEventListener("hashchange", loadPost);
 
 async function createPost(e) {
   e.preventDefault();
@@ -11,6 +11,7 @@ async function createPost(e) {
       posted_by: e.target.author.value,
       story: e.target.content.value,
     };
+    console.log(postData);
     const options = {
       method: "Post",
       headers: { "Content-Type": "application/json" },
@@ -18,7 +19,9 @@ async function createPost(e) {
     };
     const response = await fetch("http://localhost:3000/post", options);
     const whatisthis = await response.json();
+    console.log(whatisthis);
     // Set up  url - The WillTom way
+
     window.location.hash = `${whatisthis.id}`;
     const formContainer = document.getElementById("formContainer");
     formContainer.innerHTML = "";
@@ -26,11 +29,6 @@ async function createPost(e) {
   } catch (err) {
     console.log(err);
   }
-}
-
-function updateLink() {
-  let hash = window.location.href;
-  console.log(hash);
 }
 
 function displayPost(data) {
@@ -49,4 +47,21 @@ function displayPost(data) {
   p.textContent = `${data.story}`;
 
   post.append(h2, h4, p);
+}
+
+async function loadPost(e) {
+  e.preventDefault();
+  // Clear all HTML contaniers
+  const formContainer = document.getElementById("formContainer");
+  const postContainer = document.getElementById("post");
+  formContainer.innerHTML = "";
+  postContainer.innerHTML = "";
+
+  //get id for post
+  const id = window.location.hash.substring(1);
+  const response = await fetch(`http://localhost:3000/post/${id}`);
+  const weknowwhatthisis = await response.json();
+  console.log(weknowwhatthisis);
+  // Reuse display function above
+  displayPost(weknowwhatthisis);
 }

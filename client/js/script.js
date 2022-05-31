@@ -1,6 +1,8 @@
 const form = document.getElementById("form");
 const post = document.getElementById("post");
 form.addEventListener("submit", createPost);
+
+// change of
 window.addEventListener("hashchange", loadPost);
 
 async function createPost(e) {
@@ -11,7 +13,7 @@ async function createPost(e) {
       posted_by: e.target.author.value,
       story: e.target.content.value,
     };
-    console.log(postData);
+
     const options = {
       method: "Post",
       headers: { "Content-Type": "application/json" },
@@ -61,7 +63,6 @@ async function loadPost(e) {
   const id = window.location.hash.substring(1);
   const response = await fetch(`http://localhost:3000/post/${id}`);
   const weknowwhatthisis = await response.json();
-  console.log(weknowwhatthisis);
   // Reuse display function above
   displayPost(weknowwhatthisis);
 }
